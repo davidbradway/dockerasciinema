@@ -1,4 +1,4 @@
-# ASCIINEMA via Docker Python 3 Alpine pip install
+# asciinema via a Docker Python 3 Alpine image 
 
 ## Build new image from DOCKERFILE
 
@@ -12,8 +12,8 @@ docker build -t asciinema .  # Create image using this directory's Dockerfile
 
 - Remove container when it finishes
 - Run interactive, tty mode
-- Run default or other command
-- Optionally, provide arguments
+- Mount pwd to app to save files
+- Record, Play, and Upload commands
 
 ```bash
 docker run --rm -ti --mount src="$(pwd)",target=/app,type=bind asciinema asciinema rec local.cast
@@ -21,6 +21,6 @@ docker run --rm -ti --mount src="$(pwd)",target=/app,type=bind asciinema asciine
 docker run --rm -ti --mount src="$(pwd)",target=/app,type=bind asciinema asciinema upload local.cast
 ```
 
-# more info
+## More info
 
 https://github.com/asciinema/asciinema
