@@ -1,11 +1,13 @@
 # Use an official Python runtime as a parent image
 FROM python:3-alpine
 
+RUN apk add ncurses
+
 COPY . /app
 
 WORKDIR /app
 
-RUN pip install -e .
+RUN pip install -r requirements.txt
 
 # Run command when the container launches
-CMD ["hello", "--help"]
+CMD ["asciinema", "rec"]
