@@ -1,13 +1,26 @@
 # Use an official Python runtime as a parent image
-FROM python:3-alpine
+FROM python:3.6-alpine as base
+
+FROM base as builder
 
 RUN apk add ncurses
 
-COPY . /app
+RUN mkdir /install
+WORKDIR /install
 
+COPY requirements.txt /requirements.txt
+
+# Install any needed packages specified in requirements.txt
+RUN pip install --trusted-host pypi.python.org --install-option="--prefix=/install" -r /requirements.txt
+
+FROM base
+
+RUN apk add ncurses
+
+COPY --from=builder /install /usr/local
+
+RUN mkdir /app
 WORKDIR /app
-
-RUN pip install -r requirements.txt
 
 # Run command when the container launches
 CMD ["asciinema", "rec"]
